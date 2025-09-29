@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AppAkk</string>
+    <string name="id_can_not_be_null">Id can´t be null</string>
+    <string name="main">main</string>
+    <string name="characterId">characterId</string>
+    <string name="search">search</string>
+    <string name="alive">Alive</string>
+    <string name="dead">Dead</string>
+    <string name="unknown">Unknown</string>
+    <string name="back">back</string>
+    <string name="clear">clear</string>
+</resources>
