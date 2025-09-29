@@ -18,6 +18,10 @@ import androidx.navigation.NavHostController
 import app.components.ErrorScreen
 import app.components.LoadingScreen
 import app.ui.CharacterViewModel
+import model.Idle
+import model.Loading
+import model.Success
+import model.UiError
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,14 +36,14 @@ fun CharacterDetailsScreen(id: Int, navController: NavHostController) {
     }
 
     when (uiState.value) {
-        is CharacterViewModel.UiError -> {
-            ErrorScreen(errorMsg = (uiState.value as CharacterViewModel.UiError).exception)
+        is UiError -> {
+            ErrorScreen(errorMsg = (uiState.value as UiError).exception)
         }
-        CharacterViewModel.Loading -> {
+        Loading -> {
             LoadingScreen()
         }
-        is CharacterViewModel.Success -> {
-            val model = (uiState.value as CharacterViewModel.Success).characters.first()
+        is Success -> {
+            val model = (uiState.value as Success).characters.first()
             Scaffold(topBar = {
                 TopAppBar(
                     title = { Text(model.name) },
@@ -56,6 +60,6 @@ fun CharacterDetailsScreen(id: Int, navController: NavHostController) {
                 CharacterItem(modifier = Modifier.padding(paddingValues), model)
             }
         }
-        CharacterViewModel.Idle -> Unit
+        Idle -> Unit
     }
 }

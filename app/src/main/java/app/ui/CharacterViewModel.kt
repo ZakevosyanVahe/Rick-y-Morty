@@ -9,7 +9,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import model.CharacterUiModel
+import model.Idle
+import model.Loading
+import model.Success
+import model.UiError
+import model.UiState
 import usaCase.GetCharacterByIdUseCase
 import usaCase.GetCharactersUseCase
 import usaCase.LoadNextPageUseCase
@@ -104,10 +108,4 @@ class CharacterViewModel(
             }
         }
     }
-
-    sealed class UiState
-    data class Success(val characters: List<CharacterUiModel>) : UiState()
-    data class UiError(val exception: String) : UiState()
-    object Loading : UiState()
-    object Idle : UiState()
 }

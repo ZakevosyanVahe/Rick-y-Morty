@@ -32,8 +32,15 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(kotlin("test"))
+
     // Retrofit para REST API
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -45,4 +52,5 @@ dependencies {
     implementation(libs.koin.core.v350)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+
 }

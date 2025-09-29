@@ -51,6 +51,10 @@ import app.components.StatusState
 import app.ui.CharacterViewModel
 import com.example.appakk.R
 import model.CharacterUiModel
+import model.Idle
+import model.Loading
+import model.Success
+import model.UiError
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -114,16 +118,16 @@ fun CharacterSearchScreen(navController: NavHostController) {
     ) { paddingValues ->
         val uiState = viewModel.uiState.collectAsState()
         when (uiState.value) {
-            is CharacterViewModel.UiError -> {
-                ErrorScreen(errorMsg = (uiState.value as CharacterViewModel.UiError).exception)
+            is UiError -> {
+                ErrorScreen(errorMsg = (uiState.value as UiError).exception)
             }
 
-            CharacterViewModel.Loading -> {
+            Loading -> {
                 LoadingScreen()
             }
 
-            is CharacterViewModel.Success -> {
-                val characters = (uiState.value as CharacterViewModel.Success).characters
+            is Success -> {
+                val characters = (uiState.value as Success).characters
                 SearchResultContent(
                     modifier = Modifier
                         .padding(paddingValues)
@@ -133,7 +137,7 @@ fun CharacterSearchScreen(navController: NavHostController) {
                     navController.navigate("detail/${it}")
                 }
             }
-            CharacterViewModel.Idle -> Unit
+            Idle -> Unit
         }
     }
 }

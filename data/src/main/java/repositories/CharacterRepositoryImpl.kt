@@ -28,7 +28,6 @@ class CharacterRepositoryImpl(
         } catch (e: Exception) {
             return ErrorResponse(e.message)
         }
-
     }
 
     override suspend fun getCharacterById(id: Int): CharactersResponse {
@@ -38,7 +37,6 @@ class CharacterRepositoryImpl(
         } catch (e: Exception) {
             return ErrorResponse(e.message)
         }
-
     }
 
     override suspend fun searchCharacterByName(name: String): CharactersResponse {

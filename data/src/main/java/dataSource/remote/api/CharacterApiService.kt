@@ -19,6 +19,4 @@ interface CharacterApiService {
 
     @GET("character/")
     suspend fun getCharacterByName(@Query("name") name: String? = null): ApiResponse<List<CharacterApiModel>>
-
-
 }

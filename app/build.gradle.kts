@@ -53,9 +53,21 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
 
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test.v173)
+
+    // AndroidX dependencies para ViewModel
+    testImplementation(libs.androidx.core.testing)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(kotlin("test"))
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)

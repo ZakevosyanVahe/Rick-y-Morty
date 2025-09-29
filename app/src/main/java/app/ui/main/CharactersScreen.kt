@@ -32,6 +32,11 @@ import app.components.ErrorScreen
 import app.components.LoadingScreen
 import app.ui.CharacterViewModel
 import com.example.appakk.R
+import model.Idle
+import model.Loading
+import model.Success
+import model.UiError
+import model.UiState
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,21 +90,20 @@ fun CharactersScreen(
 private fun Content(
     navController: NavController,
     listState: LazyListState,
-    uiState: CharacterViewModel.UiState,
+    uiState: UiState,
     paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
     onSuccess: (itemSize: Int) -> Unit
 ) {
     when (uiState) {
-        is CharacterViewModel.UiError -> {
+        is UiError -> {
             ErrorScreen(errorMsg = uiState.exception)
         }
-
-        CharacterViewModel.Loading -> {
+        Loading -> {
             LoadingScreen()
         }
 
-        is CharacterViewModel.Success -> {
+        is Success -> {
             val characterList = uiState.characters
             onSuccess.invoke(characterList.size)
 
@@ -124,6 +128,6 @@ private fun Content(
             }
         }
 
-        CharacterViewModel.Idle -> Unit
+        Idle -> Unit
     }
 }
