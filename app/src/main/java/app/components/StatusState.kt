@@ -2,7 +2,6 @@ package app.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -20,9 +19,9 @@ import model.CharacterStatus
 import model.CharacterUiModel
 
 @Composable
-fun StatusState(modifier: Modifier, model: CharacterUiModel) {
+fun StatusState(modifier: Modifier = Modifier, model: CharacterUiModel) {
     Row(
-        modifier = modifier.padding(8.dp),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -52,7 +51,7 @@ fun StatusState(modifier: Modifier, model: CharacterUiModel) {
         Text(
             text = model.status,
             style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = Color.Black
         )
     }
 }

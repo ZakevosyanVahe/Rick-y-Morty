@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,44 +34,72 @@ fun CharacterItem(
     onClicked: ((id: Int) -> Unit)? = null
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.surfaceContainer)
-            .border(
-                width = 0.5.dp,
-                color = Color.Gray,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(4.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White, shape = RoundedCornerShape(8.dp))
+            .border(0.5.dp, color = Color.LightGray)
             .clickable {
                 onClicked?.invoke(model.id)
             }
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            // Title (centered)
-            Text(
-                text = model.name,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurface
+        Row(modifier = Modifier.fillMaxSize()) {
+            CharacterPhoto(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+                    .weight(1f)
+                    .align(Alignment.CenterVertically)
+                    .clip(RoundedCornerShape(8.dp)),
+                model.image
             )
 
-            StatusState(modifier, model)
-
-            CharacterPhoto(modifier.clip(RoundedCornerShape(8.dp)), model.image)
-
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text = String.format(location, model.location.name),
-                style = MaterialTheme.typography.bodySmall,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+                    .align(Alignment.CenterVertically)
+                    .weight(2f)
+                    .background(
+                        color = MaterialTheme.colorScheme.background,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .border(
+                        width = 0.1.dp,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Center)
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        //.align(Alignment.CenterHorizontally),
+                        text = model.name,
+                        textAlign = TextAlign.Center,
+                        color = Color.Black,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        //.align(Alignment.CenterHorizontally),
+                        text = "Location: ${model.location.name}",
+                        textAlign = TextAlign.Center,
+                        color = Color.Black,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    StatusState(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        model = model
+                    )
+                }
+            }
         }
     }
 }

@@ -23,7 +23,6 @@ fun CharacterPhoto(modifier: Modifier = Modifier, imageUrl: String) {
             .build(),
         contentDescription = "Character image",
         imageLoader = imageLoader,
-
         modifier = modifier,
         contentScale = ContentScale.Crop,
     )
