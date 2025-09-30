@@ -12,39 +12,44 @@ class CharacterRepositoryImpl(
     private val characterMapper: CharacterMapper
 ) : CharacterRepository {
 
+    private var cachedCharacters: CharactersResponse? = null
+
     override suspend fun getCharacters(): CharactersResponse {
-        try {
+        cachedCharacters?.let { return it }
+        return try {
             val apiCharacters = remoteDataSource.getCharacters()
-            return characterMapper.toDomain(apiCharacters.info.next, apiCharacters.results)
+            val response = characterMapper.toDomain(apiCharacters.info.next, apiCharacters.results)
+            cachedCharacters = response
+            response
         } catch (e: Exception) {
-            return ErrorResponse(e.message)
+            ErrorResponse(e.message)
         }
     }
 
     override suspend fun loadNextPage(url: String): CharactersResponse {
-        try {
+        return try {
             val apiCharacters = remoteDataSource.loadNextPage(url)
-            return characterMapper.toDomain(apiCharacters.info.next, apiCharacters.results)
+            characterMapper.toDomain(apiCharacters.info.next, apiCharacters.results)
         } catch (e: Exception) {
-            return ErrorResponse(e.message)
+            ErrorResponse(e.message)
         }
     }
 
     override suspend fun getCharacterById(id: Int): CharactersResponse {
-        try {
+        return try {
             val apiCharacter = remoteDataSource.getCharacterById(id)
-            return SuccessResponse(null, listOf(characterMapper.toDomain(apiCharacter)))
+            SuccessResponse(null, listOf(characterMapper.toDomain(apiCharacter)))
         } catch (e: Exception) {
-            return ErrorResponse(e.message)
+            ErrorResponse(e.message)
         }
     }
 
     override suspend fun searchCharacterByName(name: String): CharactersResponse {
-        try {
+        return try {
             val apiCharacters = remoteDataSource.searchCharacterByName(name)
-            return characterMapper.toDomain(apiCharacters.info.next, apiCharacters.results)
+            characterMapper.toDomain(apiCharacters.info.next, apiCharacters.results)
         } catch (e: Exception) {
-            return ErrorResponse(e.message)
+            ErrorResponse(e.message)
         }
     }
 }
