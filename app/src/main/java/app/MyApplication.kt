@@ -2,6 +2,7 @@ package app
 
 import android.app.Application
 import android.util.Log
+import app.util.ImageLoader
 import di.appModule
 import di.dataModule
 import di.dataSourceModule
@@ -15,6 +16,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        ImageLoader.appContext = applicationContext
         startKoin {
             androidContext(this@MyApplication)
             val moduleList = listOf(

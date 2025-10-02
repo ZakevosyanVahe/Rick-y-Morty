@@ -34,7 +34,7 @@ fun CharacterItem(
     onClicked: ((id: Int) -> Unit)? = null
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(color = Color.White, shape = RoundedCornerShape(8.dp))
             .border(0.5.dp, color = Color.LightGray)
@@ -42,7 +42,7 @@ fun CharacterItem(
                 onClicked?.invoke(model.id)
             }
     ) {
-        Row(modifier = Modifier.fillMaxSize()) {
+        Row(modifier = modifier.fillMaxSize()) {
             CharacterPhoto(
                 modifier = Modifier
                     .fillMaxSize()
@@ -54,7 +54,7 @@ fun CharacterItem(
             )
 
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .padding(8.dp)
                     .align(Alignment.CenterVertically)
@@ -70,32 +70,30 @@ fun CharacterItem(
                     )
             ) {
                 Column(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .align(Alignment.Center)
                 ) {
                     Text(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(8.dp),
-                        //.align(Alignment.CenterHorizontally),
                         text = model.name,
                         textAlign = TextAlign.Center,
                         color = Color.Black,
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(8.dp),
-                        //.align(Alignment.CenterHorizontally),
                         text = "Location: ${model.location.name}",
                         textAlign = TextAlign.Center,
                         color = Color.Black,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     StatusState(
-                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        modifier = modifier.align(Alignment.CenterHorizontally),
                         model = model
                     )
                 }

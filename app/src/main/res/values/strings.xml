@@ -9,6 +9,7 @@
     <string name="unknown">Unknown</string>
     <string name="back">back</string>
     <string name="clear">clear</string>
+    <string name="character_image">Character image</string>
 
     <string name="asa">"https://rickandmortyapi.com/api/character/avatar/136.jpeg"</string>
 </resources>

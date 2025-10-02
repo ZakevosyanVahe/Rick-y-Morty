@@ -5,48 +5,29 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import coil.ImageLoader
+import androidx.compose.ui.res.stringResource
+import app.util.ImageLoader
 import coil.compose.AsyncImage
-import coil.disk.DiskCache
-import coil.memory.MemoryCache
 import coil.request.ImageRequest
+import com.example.appakk.R
 
 @Composable
 fun CharacterPhoto(modifier: Modifier = Modifier, imageUrl: String) {
-    val imageLoader = rememberImageLoader()
+    val context = LocalContext.current
+    val imageLoader = remember { ImageLoader.imageLoader }
+    
     AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
+        model = ImageRequest.Builder(context)
             .data(imageUrl)
             .crossfade(true)
             .diskCacheKey(imageUrl)
             .memoryCacheKey(imageUrl)
+            .memoryCachePolicy(coil.request.CachePolicy.ENABLED)
+            .diskCachePolicy(coil.request.CachePolicy.ENABLED)
             .build(),
-        contentDescription = "Character image",
+        contentDescription = stringResource(R.string.character_image),
         imageLoader = imageLoader,
         modifier = modifier,
         contentScale = ContentScale.Crop,
     )
-}
-
-@Composable
-fun rememberImageLoader(): ImageLoader {
-    val context = LocalContext.current
-
-    return remember {
-        ImageLoader.Builder(context)
-            .memoryCache {
-                MemoryCache.Builder(context)
-                    .maxSizePercent(0.25)
-                    .build()
-            }
-            .diskCache {
-                DiskCache.Builder()
-                    .directory(context.cacheDir.resolve("coil_cache"))
-                    .maxSizePercent(0.02)
-                    .build()
-            }
-            .respectCacheHeaders(false)
-            .crossfade(true)
-            .build()
-    }
 }

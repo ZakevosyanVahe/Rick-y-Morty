@@ -24,13 +24,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import app.ui.CharacterViewModel
 import app.ui.components.ErrorScreen
 import app.ui.components.LoadingScreen
-import app.ui.CharacterViewModel
+import app.util.ImageLoader
 import com.example.appakk.R
 import model.Idle
 import model.Loading
@@ -99,12 +101,24 @@ private fun Content(
         is UiError -> {
             ErrorScreen(errorMsg = uiState.exception)
         }
+
         Loading -> {
             LoadingScreen()
         }
 
         is Success -> {
             val characterList = uiState.characters
+            val context = LocalContext.current
+
+            LaunchedEffect(characterList) {
+                val imageUrls = characterList.map { it.image }
+                ImageLoader.preloadImages(
+                    context,
+                    imageUrls,
+                    this
+                )
+            }
+
             onSuccess.invoke(characterList.size)
 
             LazyColumn(
