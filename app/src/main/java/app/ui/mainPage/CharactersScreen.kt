@@ -1,4 +1,4 @@
-package app.ui.main
+package app.ui.mainPage
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,8 +28,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import app.components.ErrorScreen
-import app.components.LoadingScreen
+import app.ui.components.ErrorScreen
+import app.ui.components.LoadingScreen
 import app.ui.CharacterViewModel
 import com.example.appakk.R
 import model.Idle

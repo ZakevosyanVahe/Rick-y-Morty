@@ -9,9 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import app.ui.detail.CharacterDetailsScreen
-import app.ui.main.CharactersScreen
-import app.ui.search.CharacterSearchScreen
+import app.ui.detailPage.CharacterDetailsScreen
+import app.ui.mainPage.CharactersScreen
+import app.ui.searchPage.CharacterSearchScreen
 import com.example.appakk.R
 import com.example.appakk.ui.theme.AppAkkTheme
 

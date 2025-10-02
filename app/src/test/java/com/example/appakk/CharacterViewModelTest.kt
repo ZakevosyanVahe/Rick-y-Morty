@@ -43,8 +43,14 @@ class CharacterViewModelTest {
         status = "Alive",
         species = "Human",
         gender = "Male",
-        origin = RmLocation("Earth", "url1"),
-        location = RmLocation("Earth", "url2"),
+        origin = RmLocation(
+            name = "Earth",
+            url = "url1"
+        ),
+        location = RmLocation(
+            name = "Earth",
+            url = "url2"
+        ),
         image = "image_url",
         url = "character_url",
         created = "2017-01-01"
@@ -56,8 +62,14 @@ class CharacterViewModelTest {
         status = "Alive",
         species = "Human",
         gender = "Male",
-        origin = model.RmLocation("Earth", "url1"),
-        location = model.RmLocation("Earth", "url2"),
+        origin = model.RmLocation(
+            name = "Earth",
+            url = "url1"
+        ),
+        location = model.RmLocation(
+            name = "Earth",
+            url = "url2"
+        ),
         image = "image_url",
         url = "character_url",
         created = "2017-01-01"
@@ -82,25 +94,20 @@ class CharacterViewModelTest {
 
     @Test
     fun `initial state should be Idle`() = testScope.runTest {
-        // When
         val initialState = viewModel.uiState.first()
-        // Then
         assertTrue(initialState is Idle)
     }
 
     @Test
     fun `loadCharacters should update state to Loading then Success when use case returns success`() = testScope.runTest {
-        // Given
         val successResponse = SuccessResponse(
             nextPageUrl = "next_page_url",
             charactersList = listOf(testCharacterModel)
         )
         whenever(getCharacterUseCase()).thenReturn(successResponse)
         whenever(uiMapper.toUiModel(listOf(testCharacterModel))).thenReturn(listOf(testCharacterUiModel))
-        // When
         viewModel.loadCharacters()
         advanceUntilIdle()
-        // Then
         val successState = viewModel.uiState.first() as Success
         assertEquals(listOf(testCharacterUiModel), successState.characters)
         verify(getCharacterUseCase).invoke()
@@ -108,14 +115,12 @@ class CharacterViewModelTest {
 
     @Test
     fun `loadCharacters should update state to Loading then UiError when use case returns error`() = testScope.runTest {
-        // Given
+
         val errorMessage = "Network error"
         val errorResponse = ErrorResponse(errorMessage)
         whenever(getCharacterUseCase()).thenReturn(errorResponse)
-        // When
         viewModel.loadCharacters()
         advanceUntilIdle()
-        // Then
         val errorState = viewModel.uiState.first() as UiError
         assertEquals(errorMessage, errorState.exception)
         verify(getCharacterUseCase).invoke()
@@ -123,30 +128,30 @@ class CharacterViewModelTest {
 
     @Test
     fun `loadNextPage should not proceed when current state is not Success`() = testScope.runTest {
-        // Given - initial state is Idle
-        val nextPageUrl = "next_page_url"
 
-        // When
         viewModel.loadNextPage()
         advanceUntilIdle()
 
-        // Then - state remains Idle, use case not called
         val state = viewModel.uiState.first()
         assertTrue(state is Idle)
     }
 
     @Test
     fun `loadNextPage should load next page and append characters when successful`() = testScope.runTest {
-        // Given
-        val initialCharacters = listOf(testCharacterUiModel)
         val newCharacterModel = CharacterModel(
             id = 2,
             name = "Morty Smith",
             status = "Alive",
             species = "Human",
             gender = "Male",
-            origin = RmLocation("Earth", "url3"),
-            location = RmLocation("Earth", "url4"),
+            origin = RmLocation(
+                name = "Earth",
+                url = "url3"
+            ),
+            location = RmLocation(
+                name = "Earth",
+                url = "url4"
+            ),
             image = "image_url_2",
             url = "character_url_2",
             created = "2017-01-02"
@@ -157,7 +162,10 @@ class CharacterViewModelTest {
             status = "Alive",
             species = "Human",
             gender = "Male",
-            origin = model.RmLocation("Earth", "url3"),
+            origin = model.RmLocation(
+                name = "Earth",
+                url = "url3"
+            ),
             location = model.RmLocation("Earth", "url4"),
             image = "image_url_2",
             url = "character_url_2",
@@ -168,14 +176,13 @@ class CharacterViewModelTest {
             nextPageUrl = "next_next_page_url",
             charactersList = listOf(newCharacterModel)
         )
-        // Set initial state to Success
-        viewModel.loadCharacters() // This would set the nextPageUrl internally
+
+        viewModel.loadCharacters()
         whenever(loadNextPageUseCase(nextPageUrl)).thenReturn(successResponse)
         whenever(uiMapper.toUiModel(listOf(newCharacterModel))).thenReturn(listOf(newCharacterUiModel))
-        // When
         viewModel.loadNextPage()
         advanceUntilIdle()
-        // Then
+
         val successState = viewModel.uiState.first() as Success
         assertEquals(listOf(testCharacterUiModel, newCharacterUiModel), successState.characters)
         verify(loadNextPageUseCase).invoke(nextPageUrl)
@@ -183,7 +190,6 @@ class CharacterViewModelTest {
 
     @Test
     fun `search should update state to Loading then Success when search is successful`() = testScope.runTest {
-        // Given
         val searchQuery = "Rick"
         val successResponse = SuccessResponse(
             nextPageUrl = "next_page_url",
@@ -191,10 +197,10 @@ class CharacterViewModelTest {
         )
         whenever(searchCharacterByNameUseCase(searchQuery)).thenReturn(successResponse)
         whenever(uiMapper.toUiModel(listOf(testCharacterModel))).thenReturn(listOf(testCharacterUiModel))
-        // When
+
         viewModel.search(searchQuery)
         advanceUntilIdle()
-        // Then
+
         val successState = viewModel.uiState.first() as Success
         assertEquals(listOf(testCharacterUiModel), successState.characters)
         verify(searchCharacterByNameUseCase).invoke(searchQuery)
@@ -202,15 +208,15 @@ class CharacterViewModelTest {
 
     @Test
     fun `search should update state to Loading then UiError when search fails`() = testScope.runTest {
-        // Given
+
         val searchQuery = "Rick"
         val errorMessage = "Search failed"
         val errorResponse = ErrorResponse(errorMessage)
         whenever(searchCharacterByNameUseCase(searchQuery)).thenReturn(errorResponse)
-        // When
+
         viewModel.search(searchQuery)
         advanceUntilIdle()
-        // Then
+
         val errorState = viewModel.uiState.first() as UiError
         assertEquals(errorMessage, errorState.exception)
         verify(searchCharacterByNameUseCase).invoke(searchQuery)
@@ -218,7 +224,7 @@ class CharacterViewModelTest {
 
     @Test
     fun `loadCharacterById should update state to Loading then Success with single character`() = testScope.runTest {
-        // Given
+
         val characterId = 1
         val successResponse = SuccessResponse(
             nextPageUrl = null,
@@ -226,10 +232,10 @@ class CharacterViewModelTest {
         )
         whenever(getCharacterByIdUseCase(characterId)).thenReturn(successResponse)
         whenever(uiMapper.toUiModel(testCharacterModel)).thenReturn(testCharacterUiModel)
-        // When
+
         viewModel.loadCharacterById(characterId)
         advanceUntilIdle()
-        // Then
+
         val successState = viewModel.uiState.first() as Success
         assertEquals(listOf(testCharacterUiModel), successState.characters)
         verify(getCharacterByIdUseCase).invoke(characterId)
@@ -237,15 +243,15 @@ class CharacterViewModelTest {
 
     @Test
     fun `loadCharacterById should update state to Loading then UiError when character not found`() = testScope.runTest {
-        // Given
+
         val characterId = 999
         val errorMessage = "Character not found"
         val errorResponse = ErrorResponse(errorMessage)
         whenever(getCharacterByIdUseCase(characterId)).thenReturn(errorResponse)
-        // When
+
         viewModel.loadCharacterById(characterId)
         advanceUntilIdle()
-        // Then
+
         val errorState = viewModel.uiState.first() as UiError
         assertEquals(errorMessage, errorState.exception)
         verify(getCharacterByIdUseCase).invoke(characterId)

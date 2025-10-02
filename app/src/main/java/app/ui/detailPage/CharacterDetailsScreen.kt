@@ -1,4 +1,4 @@
-package app.ui.detail
+package app.ui.detailPage
 
 import CharacterItem
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
-import app.components.ErrorScreen
-import app.components.LoadingScreen
+import app.ui.components.ErrorScreen
+import app.ui.components.LoadingScreen
 import app.ui.CharacterViewModel
 import model.Idle
 import model.Loading

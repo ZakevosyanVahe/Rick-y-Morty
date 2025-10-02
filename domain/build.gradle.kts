@@ -41,5 +41,11 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.koin.core.v350)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(kotlin("test"))
+    
     androidTestImplementation(libs.androidx.junit)
 }

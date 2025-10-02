@@ -1,4 +1,4 @@
-package app.ui.search
+package app.ui.searchPage
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import app.components.CharacterPhoto
-import app.components.StatusState
+import app.ui.components.CharacterPhoto
+import app.ui.components.StatusState
 import model.CharacterUiModel
 
 @Composable

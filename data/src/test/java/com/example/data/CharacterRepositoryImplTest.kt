@@ -26,7 +26,8 @@ import kotlin.test.assertEquals
 class CharacterRepositoryImplTest {
     private val remoteDataSource = mockk<CharacterRemoteDataSource>()
     private val characterMapper = mockk<CharacterMapper>()
-    private var repository: CharacterRepository = CharacterRepositoryImpl(remoteDataSource, characterMapper)
+    private var repository: CharacterRepository =
+        CharacterRepositoryImpl(remoteDataSource, characterMapper)
 
     @BeforeEach
     fun setUp() {
@@ -136,18 +137,44 @@ class CharacterRepositoryImplTest {
     @Test
     fun `getCharacterById returns SuccessResponse with 1 character mapped`() = runTest {
         val api = CharacterApiModel(
-            id = 3, name = "Summer", status = "Alive", species = "Human", type = "",
+            id = 3,
+            name = "Summer",
+            status = "Alive",
+            species = "Human",
+            type = "",
             gender = "Female",
-            origin = dataSource.models.RmLocation(name = "Earth", url = "o-url"),
-            location = dataSource.models.RmLocation(name = "Citadel", url = "l-url"),
-            image = "img", episode = listOf(), url = "u", created = "c"
+            origin = dataSource.models.RmLocation(
+                name = "Earth",
+                url = "o-url"
+            ),
+            location = dataSource.models.RmLocation(
+                name = "Citadel",
+                url = "l-url"
+            ),
+            image = "img",
+            episode = listOf(),
+            url = "u",
+            created = "c"
         )
         val domain = CharacterModel(
-            id = 3, name = "Summer", status = "Alive", species = "Human", type = "",
+            id = 3,
+            name = "Summer",
+            status = "Alive",
+            species = "Human",
+            type = "",
             gender = "Female",
-            origin = RmLocation(name = "Earth", url = "o-url"),
-            location = RmLocation(name = "Citadel", url = "l-url"),
-            image = "img", episode = listOf(), url = "u", created = "c"
+            origin = RmLocation(
+                name = "Earth",
+                url = "o-url"
+            ),
+            location = RmLocation(
+                name = "Citadel",
+                url = "l-url"
+            ),
+            image = "img",
+            episode = listOf(),
+            url = "u",
+            created = "c"
         )
 
         coEvery { remoteDataSource.getCharacterById(3) } returns api
@@ -178,22 +205,48 @@ class CharacterRepositoryImplTest {
         val apiInfo = ApiInfo(count = 826, pages = 42, next = "next-search-url", prev = null)
         val apiResults = listOf(
             CharacterApiModel(
-                id = 1, name = "Rick Sanchez", status = "Alive", species = "Human", type = "",
+                id = 1,
+                name = "Rick Sanchez",
+                status = "Alive",
+                species = "Human",
+                type = "",
                 gender = "Male",
-                origin = dataSource.models.RmLocation(name = "Earth", url = "o-url"),
-                location = dataSource.models.RmLocation(name = "Citadel", url = "l-url"),
-                image = "img", episode = listOf(), url = "u", created = "c"
+                origin = dataSource.models.RmLocation(
+                    name = "Earth",
+                    url = "o-url"
+                ),
+                location = dataSource.models.RmLocation(
+                    name = "Citadel",
+                    url = "l-url"
+                ),
+                image = "img",
+                episode = listOf(),
+                url = "u",
+                created = "c"
             )
         )
         val apiResponse = ApiResponse(results = apiResults, info = apiInfo)
 
         val domainList = listOf(
             CharacterModel(
-                id = 1, name = "Rick Sanchez", status = "Alive", species = "Human", type = "",
+                id = 1,
+                name = "Rick Sanchez",
+                status = "Alive",
+                species = "Human",
+                type = "",
                 gender = "Male",
-                origin = RmLocation(name = "Earth", url = "o-url"),
-                location = RmLocation(name = "Citadel", url = "l-url"),
-                image = "img", episode = listOf(), url = "u", created = "c"
+                origin = RmLocation(
+                    name = "Earth",
+                    url = "o-url"
+                ),
+                location = RmLocation(
+                    name = "Citadel",
+                    url = "l-url"
+                ),
+                image = "img",
+                episode = listOf(),
+                url = "u",
+                created = "c"
             )
         )
         val mapped = SuccessResponse(nextPageUrl = "next-search-url", charactersList = domainList)

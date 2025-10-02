@@ -1,4 +1,4 @@
-package app.ui.search
+package app.ui.searchPage
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -25,9 +25,9 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import app.components.ErrorScreen
-import app.components.LoadingScreen
 import app.ui.CharacterViewModel
+import app.ui.components.ErrorScreen
+import app.ui.components.LoadingScreen
 import com.example.appakk.R
 import model.CharacterUiModel
 import model.Idle

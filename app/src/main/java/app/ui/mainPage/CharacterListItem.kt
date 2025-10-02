@@ -1,4 +1,4 @@
-package app.ui.main
+package app.ui.mainPage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,8 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import app.components.CharacterPhoto
-import app.components.StatusState
+import app.ui.components.CharacterPhoto
+import app.ui.components.StatusState
 import model.CharacterUiModel
 import model.RmLocation
 

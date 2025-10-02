@@ -1,4 +1,4 @@
-package app.ui.search
+package app.ui.searchPage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -11,8 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import app.components.CharacterPhoto
-import app.components.StatusState
+import app.ui.components.CharacterPhoto
+import app.ui.components.StatusState
 import model.CharacterUiModel
 
 @Composable
