@@ -24,11 +24,6 @@ class MyApplication : Application() {
                 dataSourceModule, mapperModule
             )
             Log.d("MyApplication", "Koin modules: $moduleList")
-            moduleList.forEachIndexed { index, module ->
-                if (module == null) {
-                    Log.e("MyApplication", "Koin module at index $index is NULL!")
-                }
-            }
             modules(moduleList)
         }
     }

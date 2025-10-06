@@ -61,7 +61,7 @@ class CharacterRemoteDataSourceTest {
         val thrownException = assertThrows(NetworkException::class.java) {
             runTest { dataSource.getCharacters() }
         }
-        assertEquals("Error fetching characters", thrownException.message)
+        assertEquals("Unexpected error occurred: Network error", thrownException.message)
         assertEquals(exception, thrownException.cause)
     }
 
